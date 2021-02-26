@@ -1,3 +1,4 @@
+import router from '../../router'
 import UserService from '../../service/UserService';
 
 export default {
@@ -5,11 +6,15 @@ export default {
 
   state: {
     token: null,
+    user: null,
   },
 
   mutations: {
     setToken(state, token) {
       state.token = token;
+    },
+    setUser(state, user) {
+      state.user = user;
     }
   },
 
@@ -19,16 +24,27 @@ export default {
         UserService.login(credentials)
           .then(result => {
             commit('setToken', result.data.access_token);
-            console.log('LOGIN callback: ');
-            console.log(result.data);
+            localStorage.setItem('token', result.data.access_token);
+
+            router.replace('/');
             resolve();
           })
           .catch(err => reject(err));
       });
+    },
+
+    fetchUser({ commit }) {
+      UserService.user()
+        .then(result => {
+          commit('setUser', result.data);
+          localStorage.setItem('user', JSON.stringify(result.data));
+        })
     }
   },
 
   getters: {
     token: state => state.token,
+    user: state => state.user,
+    isAuthenticated: state => state.token !== null,
   }
 }

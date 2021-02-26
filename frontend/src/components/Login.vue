@@ -37,9 +37,10 @@ export default {
     }),
 
     onSubmit() {
-      this.login(this.credentials).then(() => console.log('login page callback'));
+      this.login(this.credentials);
     }
-  }
+  },
+
 }
 </script>
 

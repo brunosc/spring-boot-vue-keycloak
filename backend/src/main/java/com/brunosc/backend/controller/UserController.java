@@ -31,13 +31,13 @@ class UserController {
     }
 
     @PostMapping
-    ResponseEntity<Void> createUser(@RequestBody NewUserCommand user) {
+    ResponseEntity<Void> postUser(@RequestBody NewUserCommand user) {
         createUserUseCase.create(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/token")
-    ResponseEntity<AccessTokenResponse> login(@RequestBody LoginUseCase.LoginCommand login) {
+    ResponseEntity<AccessTokenResponse> postToken(@RequestBody LoginUseCase.LoginCommand login) {
         return ResponseEntity.ok(loginUseCase.login(login));
     }
 
@@ -48,7 +48,7 @@ class UserController {
 
 
     @GetMapping("/protected-data")
-    public ResponseEntity<User> getEmail() {
+    public ResponseEntity<User> getUser() {
         return ResponseEntity.ok(getLoggedInUserUseCase.getUser());
     }
 }
