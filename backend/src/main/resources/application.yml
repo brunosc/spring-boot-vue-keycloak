@@ -1,0 +1,10 @@
+keycloak:
+  realm: spring-boot-vue-keycloak
+  auth-server-url: http://localhost:8888/auth
+  ssl-required: external
+  resource: spring-boot-vue-keycloak-backend # client_id
+  use-resource-role-mappings: true
+  bearer-only: true # prevent redirect to login page
+server:
+  servlet:
+    context-path: /api
